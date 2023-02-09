@@ -11,7 +11,7 @@ class ButtonRecorder(object):
         gpio.setup(18, gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.setup(16, gpio.IN, pull_up_down=gpio.PUD_DOWN)
         # Creating a timer that will call the falling function after 120 seconds.
-        self.rtc = ButtonTimeout(15, self.handle_timer)
+        self.rtc = ButtonTimeout(120, self.handle_timer)
         # Creating a Recorder object with 2 channels.
         self.recorder = Recorder(channels=2)
         self.timerFired = False
@@ -75,7 +75,7 @@ class ButtonRecorder(object):
         """
         It starts after a 1 second delay, plays a preamble, and then starts recording
         """
-        sleep(1)
+#        sleep(1)
         playPreamble()
         self.recfile = self.recorder.open(fileNameGen(), 'wb')
         self.recfile.start_recording()
