@@ -92,6 +92,6 @@ class RecordingFile(object):
     def _prepare_file(self, fname, mode='wb'):
         wavefile = wave.open(fname, mode)
         wavefile.setnchannels(self.channels)
-        wavefile.setsampwidth(self._pa.get_sample_size(pyaudio.paInt32))
+        wavefile.setsampwidth(self._pa.get_sample_size(pyaudio.paInt16))
         wavefile.setframerate(self.rate)
         return wavefile
