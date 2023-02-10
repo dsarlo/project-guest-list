@@ -75,7 +75,7 @@ class ButtonRecorder(object):
         """
         It starts after a 1 second delay, plays a preamble, and then starts recording
         """
-        sleep(2)
+        sleep(1)
         playPreamble()
         self.recfile = self.recorder.open(fileNameGen(), 'wb')
         self.recfile.start_recording()
