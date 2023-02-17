@@ -14,7 +14,7 @@ class ButtonRecorder(object):
         # Creating a timer that will call the falling function after 120 seconds.
         self.timer = ButtonTimeout(120, self.handle_timer)
         # Creating a Recorder object with 2 channels.
-        self.recorder = Recorder(channels=2)
+        self.recorder = Recorder()
         self.timerFired = False
         self.handsetLowered = False
 
