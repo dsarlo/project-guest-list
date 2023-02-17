@@ -3,6 +3,7 @@ from recorder import Recorder
 from filename import *
 from playback import *
 from timer import ButtonTimeout
+from time import sleep
 gpio.setmode(gpio.BOARD)
 
 class ButtonRecorder(object):
