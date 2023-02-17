@@ -41,7 +41,6 @@ class RecordingFile(object):
         self.rate = rate
         self.frames_per_buffer = frames_per_buffer
         self._pa = pyaudio.PyAudio()
-        self.input_device_index = 6 #pulse audio
         self.wavefile = self._prepare_file(self.fname, self.mode)
         self._stream = None
 
@@ -70,8 +69,7 @@ class RecordingFile(object):
                                         rate=self.rate,
                                         input=True,
                                         frames_per_buffer=self.frames_per_buffer,
-                                        stream_callback=self.get_callback(),
-                                        input_device_index=self.input_device_index)
+                                        stream_callback=self.get_callback())
         self._stream.start_stream()
         return self
 
