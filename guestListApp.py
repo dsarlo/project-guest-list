@@ -11,7 +11,7 @@ class ButtonRecorder(object):
         gpio.setup(18, gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.setup(16, gpio.IN, pull_up_down=gpio.PUD_DOWN)
         # Creating a timer that will call the falling function after 120 seconds.
-        self.rtc = ButtonTimeout(120, self.handle_timer)
+        self.timer = ButtonTimeout(120, self.handle_timer)
         # Creating a Recorder object with 2 channels.
         self.recorder = Recorder(channels=2)
         self.timerFired = False
@@ -30,7 +30,6 @@ class ButtonRecorder(object):
         :param channel: the GPIO pin number that the handset is connected to, defaults to 18 (optional)
         """
         print('lifted from rest')
-        self.rtc.start()
         self.handsetLowered = False
         self.timerFired = False
         gpio.remove_event_detect(channel)
@@ -49,7 +48,6 @@ class ButtonRecorder(object):
         self.handsetLowered = True
         if self.timerFired == False:
             self.stop_recording()
-            next
         gpio.remove_event_detect(channel)
         gpio.add_event_detect(18, gpio.RISING, callback=self.handset_up, bouncetime=50)
     
@@ -59,9 +57,7 @@ class ButtonRecorder(object):
         """
         print('Timer fired')
         self.timerFired = True
-        self.rtc.cancel()
-        if self.handsetLowered == False:
-            self.stop_recording()
+        self.stop_recording()
 
     def stop_recording(self):
         """
@@ -69,7 +65,7 @@ class ButtonRecorder(object):
         """
         self.recfile.stop_recording()
         self.recfile.close()
-        self.rtc.cancel()
+        self.timer.cancel()
 
     def start_recording(self):
         """
@@ -77,6 +73,8 @@ class ButtonRecorder(object):
         """
         sleep(1)
         playPreamble()
+        sleep(0.1)
+        self.timer.start()
         self.recfile = self.recorder.open(fileNameGen(), 'wb')
         self.recfile.start_recording()
 
@@ -84,7 +82,7 @@ rec = ButtonRecorder()
 rec.start()
 
 try:
-    print('Ready, trying input')
+    print('Ready, waiting for input')
     input()
 
 except KeyboardInterrupt:
