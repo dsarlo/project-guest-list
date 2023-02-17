@@ -4,5 +4,4 @@ def fileNameGen():
   basename = "voicerec.wav"
   prefix = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
   fullname = "_".join([prefix, basename])
-  print(fullname)
   return fullname
