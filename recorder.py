@@ -70,7 +70,7 @@ class RecordingFile(object):
                                         input=True,
                                         frames_per_buffer=self.frames_per_buffer,
                                         stream_callback=self.get_callback(),
-                                        input_device_index=8)
+                                        input_device_index=1)
         self._stream.start_stream()
         return self
 
