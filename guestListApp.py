@@ -4,6 +4,8 @@ from filename import *
 from playback import *
 from timer import ButtonTimeout
 from time import sleep
+import sys
+
 gpio.setmode(gpio.BOARD)
 
 class ButtonRecorder(object):
@@ -31,6 +33,7 @@ class ButtonRecorder(object):
         :param channel: the GPIO pin number that the handset is connected to, defaults to 18 (optional)
         """
         print('lifted from rest')
+        sys.stdout.flush()
         self.handsetLowered = False
         self.timerFired = False
         gpio.remove_event_detect(channel)
@@ -46,6 +49,7 @@ class ButtonRecorder(object):
         :param channel: The GPIO pin number that the handset is connected to, defaults to 16 (optional)
         """
         print('returned to rest')
+        sys.stdout.flush()
         self.handsetLowered = True
         if self.timerFired == False:
             self.stop_recording()
@@ -57,6 +61,7 @@ class ButtonRecorder(object):
         If the handset is not lowered, stop recording
         """
         print('Timer fired')
+        sys.stdout.flush()
         self.timerFired = True
         self.stop_recording()
 
@@ -85,6 +90,7 @@ rec.start()
 try:
     while True:
         print('Ready, waiting for input')
+        sys.stdout.flush()
         input()
 except KeyboardInterrupt:
     pass
