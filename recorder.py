@@ -35,7 +35,7 @@ class Recorder(object):
 class RecordingFile(object):
     def __init__(self, fname, mode, channels, 
                 rate, frames_per_buffer):
-        self.fname = os.path.join("./home/pi/project-guest-list/recordings", fname)
+        self.fname = os.path.join("/home/pi/project-guest-list/recordings", fname)
         self.mode = mode
         self.channels = channels
         self.rate = rate

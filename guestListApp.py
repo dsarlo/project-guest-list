@@ -83,9 +83,8 @@ rec = ButtonRecorder()
 rec.start()
 
 try:
-    while True:
-        print('Ready, waiting for input')
-        input()
+    print('Ready, waiting for input')
+    input()
 except KeyboardInterrupt:
     pass
 finally:
