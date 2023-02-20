@@ -43,7 +43,7 @@ class RecordingFile(object):
         self._pa = pyaudio.PyAudio()
         self.wavefile = self._prepare_file(self.fname, self.mode)
         self._stream = None
-        self.input_device_index = 1
+        self.input_device_index = 0
 
     def __enter__(self):
         return self
