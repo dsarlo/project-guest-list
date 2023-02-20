@@ -43,6 +43,7 @@ class RecordingFile(object):
         self._pa = pyaudio.PyAudio()
         self.wavefile = self._prepare_file(self.fname, self.mode)
         self._stream = None
+        self.input_device_index = 1
 
     def __enter__(self):
         return self
@@ -50,27 +51,16 @@ class RecordingFile(object):
     def __exit__(self, exception, value, traceback):
         self.close()
 
-    def record(self, duration):
-        # Use a stream with no callback function in blocking mode
-        self._stream = self._pa.open(format=pyaudio.paInt16,
-                                        channels=self.channels,
-                                        rate=self.rate,
-                                        input=True,
-                                        frames_per_buffer=self.frames_per_buffer)
-        for _ in range(int(self.rate / self.frames_per_buffer * duration)):
-            audio = self._stream.read(self.frames_per_buffer)
-            self.wavefile.writeframes(audio)
-        return None
-
     def start_recording(self):
         # Use a stream with a callback in non-blocking mode
         self._stream = self._pa.open(format=pyaudio.paInt16,
                                         channels=self.channels,
                                         rate=self.rate,
                                         input=True,
+                                        output=False,
                                         frames_per_buffer=self.frames_per_buffer,
                                         stream_callback=self.get_callback(),
-                                        input_device_index=1)
+                                        input_device_index=self.input_device_index)
         self._stream.start_stream()
         return self
 
