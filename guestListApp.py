@@ -85,7 +85,7 @@ rec.start()
 
 try:
     while True:
-        sleep(1)
+        sleep(10)
 
 except KeyboardInterrupt:
     pass
