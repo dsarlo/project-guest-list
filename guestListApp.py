@@ -85,7 +85,6 @@ rec.start()
 
 try:
     while True:
-        print('Ready, waiting for input')
         sleep(1)
 
 except KeyboardInterrupt:
