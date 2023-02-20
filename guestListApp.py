@@ -83,10 +83,10 @@ rec = ButtonRecorder()
 rec.start()
 
 try:
-    print('Ready, waiting for input')
-    input()
-
+    while True:
+        print('Ready, waiting for input')
+        input()
 except KeyboardInterrupt:
     pass
-
-gpio.cleanup()
+finally:
+    gpio.cleanup()
